@@ -1,14 +1,17 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
+  const token = req.header('Authorization')?.split(' ')[1];  // Extract Bearer token
+  if (!token) return res.status(401).json({ error: 'Access denied, token missing!' });
+
   try {
-    const token = req.headers.authorization.split(" ")[1]; // Extract the token from the Authorization header
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify the token using JWT secret
-    req.user = decoded; // Store the decoded token payload (user data) in req.user
-    next(); // Move to the next middleware/route handler
+    const verifiedUser = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = verifiedUser;  // Attach user info to the request
+    next();  // Proceed to the next middleware/route handler
   } catch (error) {
-    res.status(401).json({ error: "Invalid token." }); // Respond with a 401 error for invalid token
+    res.status(400).json({ error: 'Invalid token!' });
   }
 }
 
 module.exports = verifyToken;
+
