@@ -80,12 +80,12 @@ router.delete("/:hootId", async (req, res) => {
   }
 });
 
-router.delete('/:hootId/comments/:commentId', verifyToken, async (req, res) => {
+router.delete("/:hootId/comments/:commentId", verifyToken, async (req, res) => {
   try {
     // Your code to delete the comment
-    res.status(200).json({ message: 'Comment deleted' });
+    res.status(200).json({ message: "Comment deleted" });
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting comment' });
+    res.status(500).json({ error: "Error deleting comment" });
   }
 });
 
