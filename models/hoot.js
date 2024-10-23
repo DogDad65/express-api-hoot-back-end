@@ -26,6 +26,7 @@ const hootSchema = new mongoose.Schema(
       required: true,
       enum: ['News', 'Sports', 'Games', 'Movies', 'Music', 'Television'],
     },
+    photoUrl: String,
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     comments: [commentSchema]
   },
